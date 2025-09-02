@@ -1,5 +1,5 @@
 array = [];
-const SORT_TICK_MAX = 20;
+const SORT_TICK_MAX = 1;
 let sorting = false;
 let sortTick = 0;
 let sort_data = {highlighted: [], currentAlgorithm : ""};
@@ -84,7 +84,7 @@ function resetSorting() {
             sort_data = {currentAlgorithm: "bubble", i: array.length-1, j: 0, highlighted: [array.length-1, 0]};
             break;
         case 'selection':
-            sort_data = {currentAlgorithm: "selection", i: 0, j: 0, highlighted: [0, 0]};
+            sort_data = {currentAlgorithm: "selection", i: 0, j: 0, min_ind : 0, highlighted: [0, 0]};
             break;
         case 'insertion':
             sort_data = {currentAlgorithm: "insertion", i: 0, j: 0, highlighted: [0, 0]};
@@ -121,9 +121,30 @@ function bubbleSortStep(){
     
 }
 function selectionSortStep(){
+    if(sort_data.i  == array.length-1){
+        pauseSorting();
+        return;
+    }
+    if(sort_data.j == array.length){
+        let temp = array[sort_data.i];
+        array[sort_data.i] = array[sort_data.min_ind];
+        array[sort_data.min_ind] = temp;
+        sort_data.i++;
+        sort_data.j = sort_data.i;
+        sort_data.highlighted = [sort_data.i, sort_data.min_ind, sort_data.j];
+
+    }
+    else{
+        sort_data.j++;
+        if(array[sort_data.j] < array[sort_data.min_ind]){
+            sort_data.min_ind = sort_data.j;
+        }
+        sort_data.highlighted = [sort_data.i, sort_data.j, sort_data.min_ind];
+    }
 
 }
 function insertionSortStep(){
+    
 }
 function selectedBubble(){
     sort_data = {currentAlgorithm: "bubble", i: array.length-1, j: 0, highlighted: [array.length-1, 0]};
