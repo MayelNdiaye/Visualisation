@@ -3,7 +3,6 @@ const SORT_TICK_MAX = 1;
 let sorting = false;
 let sortTick = 0;
 let sort_data = {highlighted: [], currentAlgorithm : ""};
-
 function fillArray() {
     for (let i = 0; i < 100; i++) {
         array.push(random(100));
